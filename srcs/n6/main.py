@@ -35,7 +35,7 @@ if __name__ == '__main__':
     parser.add_argument('--num-workers', default=2, type=int, help='zzz')
     parser.add_argument('--resume', default='', type=str, help='resume from checkpoint')
     parser.add_argument('--weight-decay', default=0.0001, type=float, help='weight decay (default=1e-4)')
-    parser.add_argument('--batch-size', default=128, type=int, help='batch size per GPU')
+    parser.add_argument('--batch-size', default=256, type=int, help='batch size per GPU')
     parser.add_argument('--lr', default=0.01, type=float, help='learning rate per sample')
     parser.add_argument('--num-epochs', default=90, type=int, help='')
     parser.add_argument('--tag', default=None, type=str, help='tags for multiple runs, e.g., lr')
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     torch.cuda.manual_seed(args.rng_seed)
     torch.backends.cudnn.benchmark = True
 
-    net = network.Network(hidden_dim = 128, nblock = 6)
+    net = network.Network(hidden_dim = 128, nblock = 20)
     epoch = 0
     train_steps = 0
     if args.resume:
@@ -102,8 +102,10 @@ if __name__ == '__main__':
             if batch_idx == args.batch_per_epoch:
                 break
 
+            '''
             if train_steps < args.warm_up_step:
                 adjust_learning_rate(optimizer, args.lr * (train_steps + 1) / args.warm_up_step)
+            '''
 
             if use_cuda:
                 data = data.cuda()

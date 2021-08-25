@@ -10,6 +10,7 @@ class BasicBlock(nn.Module):
         self.relu = nn.ReLU()
         self.conv = nn.Conv2d(hidden_dim, hidden_dim, kernel_size = 3, padding = 1, bias = False)
         self.bn = nn.BatchNorm2d(hidden_dim)
+        self.bn.weight.data.zero_()
 
     def forward(self, x):
         # x[ND][B][C][NH][NW]
