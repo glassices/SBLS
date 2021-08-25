@@ -28,7 +28,6 @@ from graphviz import Digraph
 
 from utils import progress_bar, adjust_learning_rate, make_log_dir
 from dataset import MyDataset, collate_fn
-from utils import push_down, push_up, insert, remove
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='AlphaPlan')
