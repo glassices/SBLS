@@ -107,7 +107,7 @@ class BasicBlock(nn.Module):
         shape = x.shape
         x = x.flatten(1, 3)
         # x[ND][B * NH * NW][C]
-        self.ln(self.self_attn(x, attn_key_padding, attn_mask), attn_mask)
+        x = self.ln(self.self_attn(x, attn_key_padding, attn_mask), attn_mask)
         x = x.view(shape)
         x = self.relu(x)
 

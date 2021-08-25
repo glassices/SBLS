@@ -73,7 +73,9 @@ class MyDataset(Dataset):
 if __name__ == '__main__':
     dataset = MyDataset()
     dataloader = DataLoader(dataset, batch_size = 10)
-    for i in range(100):
-        a = dataset[i]
-        print(i)
+    for i in range(200):
+        data, label = dataset[i]
+        u, v = round(data[0].sum().item()), round(label.sum().item())
+        if u + v != 36:
+            print(u, v)
 

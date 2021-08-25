@@ -70,7 +70,7 @@ if __name__ == '__main__':
     torch.cuda.manual_seed(args.rng_seed)
     torch.backends.cudnn.benchmark = True
 
-    net = network.Network(hidden_dim = 256, nblock = 20)
+    net = network.Network(hidden_dim = 128, nblock = 6)
     epoch = 0
     train_steps = 0
     if args.resume:
@@ -85,7 +85,8 @@ if __name__ == '__main__':
         net.cuda()
 
     criterion = nn.BCELoss()
-    optimizer = optim.SGD(net.parameters(), lr = args.lr, momentum = 0.9, weight_decay = args.weight_decay)
+    #optimizer = optim.SGD(net.parameters(), lr = args.lr, momentum = 0.9, weight_decay = args.weight_decay)
+    optimizer = optim.AdamW(net.parameters(), lr = 0.001, weight_decay = args.weight_decay)
     
     for epoch in range(epoch, args.num_epochs):
         rootLogger.info("=> start epoch {}...".format(epoch + 1))
