@@ -109,7 +109,7 @@ if __name__ == '__main__':
                 label = label.cuda()
 
             optimizer.zero_grad()
-            output = net(data, ns)
+            output = net(data)
             output = torch.sigmoid(output)
             loss = criterion(output, label)
             loss.backward()

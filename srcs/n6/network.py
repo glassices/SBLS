@@ -55,7 +55,6 @@ class Network(nn.Module):
         # x[ND][B][C][NH][NW]
 
         N, B = x.shape[0], x.shape[1]
-        assert B == len(ns)
 
         x = x.flatten(0, 1)
         # x[ND, B][C][NH][NW]
