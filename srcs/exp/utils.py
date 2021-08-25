@@ -145,49 +145,6 @@ class LabelSmoothingLoss(nn.Module):
             true_dist.scatter_(1, target.data.unsqueeze(1), self.confidence)
         return torch.mean(torch.sum(-true_dist * pred, dim=self.dim))
 
-def push_down(heap, i):
-    while (i << 1) + 1 < len(heap):
-        m = (i << 1) + 1
-        if m + 1 < len(heap) and heap[m + 1].key < heap[m].key:
-            m = m + 1
-        if heap[m].key < heap[i].key:
-            heap[m], heap[i] = heap[i], heap[m]
-            heap[i].status = i
-            heap[m].status = m
-            i = m
-        else:
-            return
-
-def push_up(heap, i):
-    while i:
-        m = i - 1 >> 1
-        if heap[i].key < heap[m].key:
-            heap[i], heap[m] = heap[m], heap[i]
-            heap[i].status = i
-            heap[m].status = m
-            i = m
-        else:
-            return
-
-def insert(heap, node):
-    node.status = len(heap)
-    heap.append(node)
-    push_up(heap, len(heap) - 1)
-
-def remove(heap, i):
-    node = heap[i]
-    if i + 1 == len(heap):
-        heap.pop()
-    else:
-        heap[i] = heap.pop()
-        heap[i].status = i
-        if heap[i].key < node.key:
-            push_up(heap, i)
-        else:
-            push_down(heap, i)
-    node.status = -1
-    return node
-
 if __name__ == '__main__':
     make_log_dir()
 
